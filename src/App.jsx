@@ -6,6 +6,8 @@ import { Route, Routes } from 'react-router-dom'
 import Login from './components/login'
 import Body from './components/body'
 import Feed from './components/feed'
+import Profile from './components/profile'
+
 // import './App.css'
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Body></Body>}>
           <Route path='/' element={<Feed></Feed>}></Route>
+          <Route path='/profile' element={<Profile></Profile>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         </Route>
       </Routes>
