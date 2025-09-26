@@ -1,31 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Navbar from './components/navbar'
-import { Route, Routes } from 'react-router-dom'
-import Login from './components/login'
-import Body from './components/body'
-import Feed from './components/feed'
-import Profile from './components/profile'
+import { Route, Routes } from "react-router-dom";
 
-// import './App.css'
+import Body from "./components/body";
+
+
+import Error404 from "./Error404";
+
+import Login from "./components/login";
+import Feed from "./components/feed";
+import Profile from "./components/profile";
+import Connections from "./components/Connections";
+import RequestRecieved from "./components/RequestRecieved";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <Routes>
-        <Route path='/' element={<Body></Body>}>
-          <Route path='/' element={<Feed></Feed>}></Route>
-          <Route path='/profile' element={<Profile></Profile>}></Route>
-        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path="/" element={<Body></Body>}>
+          <Route path="/" element={<Feed></Feed>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
+          <Route path="/profile" element={<Profile></Profile>}></Route>
+          <Route path="/connections" element={<Connections></Connections>}></Route>
+          <Route path="/connections" element={<Connections></Connections>}></Route>
+           <Route path="/request/recieved" element={<RequestRecieved></RequestRecieved>}></Route>
         </Route>
+        <Route path="*" element={<Error404></Error404>} />
       </Routes>
-    
-      
     </>
-  )
+  );
 }
 
-export default App
+export default App;
