@@ -1,54 +1,59 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import Navbar from "./navbar";
+import React, { useEffect } from "react";
+import axios from "axios";
 import Footer from "./footer";
+import { Outlet, useNavigate } from "react-router-dom";
+import NavBar from "./navbar";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
-import { UserSliceAction } from "../utils/userSlice";
-import { useEffect } from "react";
-import axios from "axios"
-
+import { addUser } from "../utils/userSlice";
 
 const Body = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const userData = useSelector((state) => state.user);
+  const refresh = useSelector((state) => state.refresh);
 
-    const navigate=useNavigate()
-    const dispatch = useDispatch();
-    const User=useSelector((state)=>state.User)
+  useEffect(() => {
+    const fetchUser = async () => {
+      // if (Object.keys(userData).length > 0) {
+      //   return;
+      // }
+      try {
+        const res = await axios.get(BASE_URL + "/profile/view", {
+          withCredentials: true,
+        });
 
-    const UserData = async () => {
-       if(User.length==0)return
-        try {
-            const res = await axios.get(BASE_URL + "/profile/view", {
-            withCredentials:true
-            })
-            console.log("profile data",res.data.data)
-            dispatch(UserSliceAction.addUser(res.data.data))
+        console.log("res......", res);
 
+        if (res.status !== 200) {
+          throw new Error("Fetch Profile Failed");
         }
-        catch (err) {
 
-            console.log(err.status)
-            if (err.status === 401) {
-                 navigate('/login')
-            }
-            
-
+        dispatch(addUser(res.data.data));
+      } catch (err) {
+        console.log("errrrrrr", err);
+        if (err.response && err.response.status === 401) {
+          console.log("401 detected");
+          navigate("/login");
+        } else {
+          console.log("Other error:", err);
         }
-    }
+      }
+    };
 
-
-    useEffect(() => {
-        console.log("Body mounted");
-      
-            UserData()
+    fetchUser();
+  }, [refresh]);
+  return (
+    <>
+      <NavBar></NavBar>
+      {/* <div className="pb-20"> */}
         
-        
-    },[])
-
-    return <>
-        <Navbar></Navbar>
-        <Outlet></Outlet>
-        <Footer></Footer>
+       
+        <Outlet />
+      {/* </div> */}
+      <Footer></Footer>
     </>
-    
-}
+  );
+};
+
 export default Body;
