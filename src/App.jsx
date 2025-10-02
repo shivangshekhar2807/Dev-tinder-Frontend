@@ -10,6 +10,7 @@ import Feed from "./components/feed";
 import Profile from "./components/profile";
 import Connections from "./components/Connections";
 import RequestRecieved from "./components/RequestRecieved";
+import Premium from "./components/Premium";
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/profile" element={<Profile></Profile>}></Route>
           <Route path="/connections" element={<Connections></Connections>}></Route>
-          <Route path="/connections" element={<Connections></Connections>}></Route>
-           <Route path="/request/recieved" element={<RequestRecieved></RequestRecieved>}></Route>
+          
+          <Route path="/request/recieved" element={<RequestRecieved></RequestRecieved>}></Route>
+           <Route path="/premium" element={<Premium></Premium>}></Route>
         </Route>
         <Route path="*" element={<Error404></Error404>} />
       </Routes>
