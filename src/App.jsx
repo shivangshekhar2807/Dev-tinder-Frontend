@@ -11,6 +11,7 @@ import Profile from "./components/profile";
 import Connections from "./components/Connections";
 import RequestRecieved from "./components/RequestRecieved";
 import Premium from "./components/Premium";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route path="/connections" element={<Connections></Connections>}></Route>
           
           <Route path="/request/recieved" element={<RequestRecieved></RequestRecieved>}></Route>
-           <Route path="/premium" element={<Premium></Premium>}></Route>
+          <Route path="/premium" element={<Premium></Premium>}></Route>
+          <Route path="/chat/:chatId" element={<Chat></Chat>}></Route>
         </Route>
         <Route path="*" element={<Error404></Error404>} />
       </Routes>
